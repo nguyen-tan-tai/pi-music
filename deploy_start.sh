@@ -6,7 +6,9 @@ git reset --hard origin/dev
 sudo rm -rf /var/www/html/*
 sudo cp -rf ~/pi-music/www/* /var/www/html/
 
-kill $(cat ./pidfile) 2> /dev/null
+if [[ -f ./pidfile ]]; then
+    kill $(cat ./pidfile) 2> /dev/null
+fi
 
 rm ./pidfile 2> /dev/null
 
