@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd ~/pi-music
 
 git fetch --prune
