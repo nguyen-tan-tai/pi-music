@@ -50,3 +50,6 @@ sudo apt-get install ffmpeg
 
 
 https://pimylifeup.com/raspberry-pi-ufw/
+
+
+install python-pidfile
