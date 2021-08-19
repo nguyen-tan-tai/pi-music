@@ -8,8 +8,7 @@ sudo cp -rf ~/pi-music/www/* /var/www/html/
 
 if [[ -f ./pidfile ]]; then
     kill $(cat ./pidfile) 2> /dev/null
+    rm ./pidfile 2> /dev/null
 fi
-
-rm ./pidfile 2> /dev/null
 
 python3 ~/pi-music/src/pimusic.py
