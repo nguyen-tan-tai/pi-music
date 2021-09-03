@@ -1,6 +1,6 @@
 # import dbus, time
 import json
-import os
+import subprocess
 
 
 class Player:
@@ -34,7 +34,7 @@ class Player:
     def play():
         if Player.__index < len(Player.__queue):
             __play = True
-            os.spawnl(os.P_WAIT, 'omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index])
+            subprocess.call('omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index], shell=True)
             __play = False
         else:
             __play = False
