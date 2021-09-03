@@ -1,25 +1,16 @@
 # import dbus, time
+import json
 
 
 class Player:
-    __instance = None
+    __queue = []
+    __index = 0
+    __pause = False
+    __shuttle = False
+    __loop = False
 
     @staticmethod
-    def get_instance():
-        if Player.__instance == None:
-            Player()
-        return Player.__instance
-
-    def __init__(self):
-        if Player.__instance != None:
-            raise Exception("This class is a singleton!")
-        else:
-            Player.__instance = self
-
-    media_list = ["hoge", "fuga"]
-    current_index = 0
-
-    def get_omx_player_bus(self):
+    def get_omx_player_bus():
         print(1)
         # with open('/tmp/omxplayerdbus.pi', 'r+') as fd:
         #     sock_info = fd.read().strip()
@@ -29,15 +20,57 @@ class Player:
         # obj = bus.get_object('org.mpris.MediaPlayer2.omxplayer', '/org/mpris/MediaPlayer2', introspect=False)
         # return dbus.Interface(obj, 'org.mpris.MediaPlayer2.Player')
 
-    def play(self, list):
-        print(list)
+    @staticmethod
+    def add_to_queue(list):
+        Player.__queue.extend(list)
 
-    def pause(self):
-        print('pause')
+    def replace_queue(list):
+        Player.__queue = list
+        Player.__index = 0
 
-    def resume(self):
-        print('resume')
+    @staticmethod
+    def play():
+        os.system ('play ' + Player.__queue[Player.__index])
 
-    def play_youtube(self, target):
-        print('play_youtube' + target)
+    @staticmethod
+    def pause(isPause):
+        Player.__pause = isPause
 
+    @staticmethod
+    def loop(isLoop):
+        Player.__loop = isLoop
+
+    @staticmethod
+    def shuttle(isShuttle):
+        Player.__shuttle = isShuttle
+
+    @staticmethod
+    def prev():
+        if Player.__index > 0:
+            Player.__index = Player.__index - 1
+        else:
+            if Player.__loop:
+                Player.__index = len(Player.__queue) - 1
+
+        Player.play()
+
+    @staticmethod
+    def next():
+        if Player.__index < len(Player.__queue) - 1:
+            Player.__index = Player.__index + 1
+        else:
+            if Player.__loop:
+                Player.__index = 0
+
+        Player.play()
+
+    @staticmethod
+    def status():
+        x = {
+            "queue": Player.__queue,
+            "index": Player.__index,
+            "pause": Player.__pause,
+            "shuttle": Player.__shuttle,
+            "loop": Player.__loop
+        }
+        return json.dumps(x);

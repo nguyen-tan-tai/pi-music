@@ -43,14 +43,16 @@ class Router(http.server.SimpleHTTPRequestHandler):
             return
 
     def do_route(self):
-        # try:
+        if self.path.endswith('.ico'):
+            return
+        try:
             controller = self.path.strip("/").split('/')[0].capitalize()
             klass = globals()[controller]
             handler = klass(self)
             handler.handle()
-        # except Exception as e:
-        #     print(e)
-        #     self.send_response(500)
+        except Exception as e:
+            print(e)
+            # self.send_response(500)
 
     def ok_html(self, html):
         self.send_response(200)
