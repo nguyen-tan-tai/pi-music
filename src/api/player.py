@@ -6,6 +6,7 @@ import os
 class Player:
     __queue = []
     __index = 0
+    __play = False
     __pause = False
     __shuttle = False
     __loop = False
@@ -31,7 +32,12 @@ class Player:
 
     @staticmethod
     def play():
-        os.system ('play ' + Player.__queue[Player.__index])
+        if Player.__index < len(Player.__queue):
+            __play = True
+            os.system ('omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index])
+            __play = False
+        else:
+            __play = False
 
     @staticmethod
     def pause(isPause):
@@ -70,6 +76,7 @@ class Player:
         x = {
             "queue": Player.__queue,
             "index": Player.__index,
+            "play": Player.__play,
             "pause": Player.__pause,
             "shuttle": Player.__shuttle,
             "loop": Player.__loop
