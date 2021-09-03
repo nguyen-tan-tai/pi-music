@@ -34,7 +34,7 @@ class Player:
     def play():
         if Player.__index < len(Player.__queue):
             __play = True
-            os.spawnl(os.P_DETACH, 'omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index])
+            os.spawnl(os.P_WAIT, 'omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index])
             __play = False
         else:
             __play = False
