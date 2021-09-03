@@ -14,4 +14,4 @@ then
     rm ~/pi-music/pidfile
 fi
 
-python3 ~/pi-music/src/pimusic.py
+python3 ~/pi-music/src/api/pimusic.py
