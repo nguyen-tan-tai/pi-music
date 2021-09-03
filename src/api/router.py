@@ -1,3 +1,4 @@
+import socket
 import http.server
 import simplejson
 from urllib.parse import urlparse
@@ -6,6 +7,7 @@ from pprint import pprint
 
 from playback import Playback
 from volume import Volume
+from media import Media
 
 
 class Router(http.server.SimpleHTTPRequestHandler):

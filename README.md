@@ -53,3 +53,6 @@ https://pimylifeup.com/raspberry-pi-ufw/
 
 
 install python-pidfile
+
+sudo apt-get install python-rpi.gpio python3-rpi.gpio
+
