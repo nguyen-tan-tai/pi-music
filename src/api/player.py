@@ -34,7 +34,7 @@ class Player:
     def play():
         if Player.__index < len(Player.__queue):
             __play = True
-            subprocess.call('omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index], shell=True)
+            subprocess.Popen('omxplayer -o alsa:hw:1,0 ~/mp3/' + Player.__queue[Player.__index], stdout=None, stderr=None, stdin=None, close_fds=True)
             __play = False
         else:
             __play = False
